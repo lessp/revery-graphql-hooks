@@ -1,0 +1,34 @@
+{
+  "name": "revery-graphql-hooks",
+  "version": "0.1.0",
+  "license": "MIT",
+  "esy": {
+    "build": [
+      "dune build -p revery-graphql-hooks"
+    ]
+  },
+  "scripts": {
+    "format": "esy dune build @fmt --auto-promote"
+  },
+  "dependencies": {
+    "revery": "github:revery-ui/revery",
+    "@opam/yojson": "*",
+    "fetch-native-lwt": "github:lessp/reason-fetch:fetch-native-lwt.json#a0abf96",
+    "@opam/dune": "*",
+    "@opam/reason": "*",
+    "ocaml": "<4.9.0"
+  },
+  "devDependencies": {
+    "pesy": "0.4.1",
+    "@opam/merlin": "^3.3.2",
+    "@opam/rtop": "*",
+    "@opam/utop": "*",
+    "@reason-native/console": "*",
+    "refmterr": "*"
+  },
+  "resolutions": {
+    "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
+    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
+    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#76b461bed081c64908fb1fdfa076ab2c936ca622"
+  }
+}

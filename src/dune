@@ -1,0 +1,9 @@
+(library
+ (name ReveryGraphqlHooks)
+ (public_name revery-graphql-hooks)
+ (libraries 
+   Revery
+   fetch-native-lwt
+   yojson 
+ ))
+
