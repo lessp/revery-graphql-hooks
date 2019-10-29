@@ -21,6 +21,8 @@ then in your `dune`-file:
 
 ## Syntax
 
+### Query
+
 ```ocaml
 module HelloQueryConfig = [%graphql
   {|
@@ -35,16 +37,57 @@ module HelloQueryConfig = [%graphql
 module HelloQuery = ReveryGraphqlHooks.Query.Make(HelloQueryConfig);
 
 let%component make = () => {
-  let%hook status = HelloQuery.use(~url=Config.apiUrl, hooks);
+  let%hook status = HelloQuery.use(~url=Config.apiUrl);
 
   let text = switch (status) {
   | Idle => "Idle"
-  | Data(data) => data#hello#name
+  | Data(query) => query#hello#name
   | Loading => "Loading..."
   | Error => "Error"
   };
 
   <Text text />;
+};
+```
+
+### Mutation
+
+```ocaml
+module AddGreetingConfig = [%graphql
+  {|
+    mutation addGreeting($greeting: String!) {
+      addGreeting(greeting: $greeting)
+    }
+  |}
+];
+
+module AddGreetingMutation =
+  ReveryGraphqlHooks.Mutation.Make(AddGreetingConfig);
+
+let%component make = () => {
+  let%hook (addGreetingMutation, status) =
+    AddGreetingMutation.use(~url="http://localhost:4000/graphql");
+
+  let text =
+    switch (status) {
+    | Idle => "Idle"
+    | Data(query) => query#addGreeting
+    | Loading => "Loading..."
+    | Error => "Error"
+    };
+
+  <Center>
+    <Button
+      onClick={_ =>
+        addGreetingMutation(
+          ~variables=AddGreetingConfig.make(~greeting="Cheers", ())#variables,
+          (),
+        )
+      }>
+      <Text style=Theme.Typography.h1 text="Click to add" />
+    </Clickable>
+    <Text style=Theme.Typography.h1 text />
+  </Center>;
 };
 ```
 

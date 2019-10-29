@@ -20,26 +20,28 @@ module type Query = {
 
   type action =
     | Idle
-    | Loading
+    | Fetch
     | Error
     | Data(t);
 
   let use:
     (
+      ~url: string,
+      ~variables: Yojson.Basic.t=?,
+      unit,
       Revery.UI.React.Hooks.t(
         (
-          Revery.UI.React.Hooks.Reducer.t(action),
+          Revery.UI.React.Hooks.Reducer.t(status),
           Revery.UI.React.Hooks.Effect.t(Revery.UI.React.Hooks.Effect.onMount)
         ) =>
         'a,
         'b,
-      ),
-      ~url: string
+      )
     ) =>
-    (action, Revery.UI.React.Hooks.t('a, 'b));
+    (status, Revery.UI.React.Hooks.t('a, 'b));
 };
 
-module Make = (G: QueryConfig) : (Query with type t = G.t) => {
+module Make = (G: QueryConfig) : (Query with type t := G.t) => {
   type t = G.t;
 
   type status =
@@ -50,32 +52,39 @@ module Make = (G: QueryConfig) : (Query with type t = G.t) => {
 
   type action =
     | Idle
-    | Loading
+    | Fetch
     | Error
     | Data(G.t);
 
-  let reducer = (action: action, state) =>
+  let reducer = (action, state): status =>
     switch (action) {
     | Idle => Idle
-    | Loading => Loading
+    | Fetch => Loading
     | Error => Error
     | Data(obj) => Data(obj)
     };
 
-  let initialState = Idle;
+  let initialState: status = Idle;
 
-  let use = (hooks, ~url) => {
-    let (state, dispatch, hooks) =
-      React.Hooks.reducer(~initialState, reducer, hooks);
+  let use = (~url, ~variables: option(Yojson.Basic.t)=?, ()) => {
+    let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
 
-    let hooks =
-      React.Hooks.effect(
+    let%hook () =
+      Hooks.effect(
         OnMount,
         () => {
+          let variables =
+            switch (variables) {
+            | Some(variables) => variables
+            | None => `Assoc([])
+            };
           let body =
-            `Assoc([("query", `String(G.query))]) |> Yojson.Safe.to_string;
+            `Assoc([("query", `String(G.query)), ("variables", variables)])
+            |> Yojson.Basic.to_string;
 
-          dispatch(Loading);
+          Console.log(("Body", body));
+
+          dispatch(Fetch);
 
           Fetch.(
             fetch(
@@ -97,14 +106,13 @@ module Make = (G: QueryConfig) : (Query with type t = G.t) => {
                    }
                  | _ => dispatch(Error),
                )
-            |> ignore
-          );
+          )
+          |> ignore;
 
           None;
         },
-        hooks,
       );
 
-    (state, hooks);
+    state;
   };
 };
