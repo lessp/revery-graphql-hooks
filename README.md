@@ -46,7 +46,7 @@ let%component make = () => {
   | Error => "Error"
   };
 
-  <Text text />;
+  <Text style=Theme.Typography.h1 text />;
 };
 ```
 
@@ -66,7 +66,7 @@ module AddGreetingMutation =
 
 let%component make = () => {
   let%hook (addGreetingMutation, status) =
-    AddGreetingMutation.use(~url="http://localhost:4000/graphql");
+    AddGreetingMutation.use(~url=Config.apiUrl);
 
   let text =
     switch (status) {
