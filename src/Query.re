@@ -18,12 +18,6 @@ module type Query = {
     | Error
     | Data(t);
 
-  type action =
-    | Idle
-    | Fetch
-    | Error
-    | Data(t);
-
   let use:
     (
       ~variables: Yojson.Basic.t=?,
@@ -42,7 +36,7 @@ module type Query = {
 
 module Make =
        (C: {let baseUrl: string;}, G: QueryConfig)
-       : (Query with type t := G.t) => {
+       : (Query with type t = G.t) => {
   type t = G.t;
   let baseUrl = C.baseUrl;
 

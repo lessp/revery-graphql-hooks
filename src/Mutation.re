@@ -18,12 +18,6 @@ module type Mutation = {
     | Error
     | Data(t);
 
-  type action =
-    | Idle
-    | Fetch
-    | Error
-    | Data(t);
-
   let use:
     (
       unit,
@@ -46,7 +40,7 @@ module type Mutation = {
 
 module Make =
        (C: {let baseUrl: string;}, G: MutationConfig)
-       : (Mutation with type t := G.t) => {
+       : (Mutation with type t = G.t) => {
   type t = G.t;
   let baseUrl = C.baseUrl;
 
