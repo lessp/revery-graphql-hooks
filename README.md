@@ -2,7 +2,9 @@
 
 > A WIP library for hooks-based data-fetching with [GraphQL PPX](https://github.com/baransu/graphql_ppx_re) for [Revery](https://github.com/revery-ui/revery).
 
-## Trying it out (in its current form)
+## Getting started (in its current form)
+
+### Installing
 
 In your `package.json/esy.json` add:
 
@@ -18,6 +20,8 @@ then in your `dune`-file:
 ```lisp
 (libraries ... revery-graphql-hooks)
 ```
+
+### Setup
 
 Create a file, lets name it `Graphql.re` for easy access.
 
