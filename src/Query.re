@@ -77,9 +77,6 @@ module Make =
           let body =
             `Assoc([("query", `String(G.query)), ("variables", variables)])
             |> Yojson.Basic.to_string;
-
-          Console.log(("Body", body));
-
           dispatch(Fetch);
 
           Fetch.(

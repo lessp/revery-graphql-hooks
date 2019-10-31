@@ -110,7 +110,11 @@ module Make =
       Hooks.effect(
         If(
           (prevShouldFetch, nextShouldFetch) =>
-            prevShouldFetch !== nextShouldFetch && nextShouldFetch == true,
+            /** only run if the previous state and the next one is different,
+             *  AND shouldFetch is true */
+            prevShouldFetch
+            !== nextShouldFetch
+            && nextShouldFetch == true,
           shouldFetch,
         ),
         () => {
@@ -120,6 +124,9 @@ module Make =
         },
       );
 
+    /* the mutation-function we provide is just a trigger for fetching
+     * and puts the variables in the state
+     */
     let mutation = (~variables, ()) => {
       setVariables(_prevVariables => variables);
       setShouldFetch(_prevShouldFetch => true);
