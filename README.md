@@ -73,7 +73,7 @@ let%component make = () => {
 ```ocaml
 module AddGreetingConfig = [%graphql
   {|
-    mutation addGreeting($greeting: String!) {
+    mutation AddGreeting($greeting: String!) {
       addGreeting(greeting: $greeting)
     }
   |}
