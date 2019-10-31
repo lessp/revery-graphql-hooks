@@ -26,7 +26,7 @@ module type Mutation = {
 
   let use:
     (
-      ~url: string,
+      unit,
       Revery.UI.React.Hooks.t(
         (
           Revery_UI.React.Hooks.State.t(bool),
@@ -44,8 +44,11 @@ module type Mutation = {
     );
 };
 
-module Make = (G: MutationConfig) : (Mutation with type t := G.t) => {
+module Make =
+       (C: {let baseUrl: string;}, G: MutationConfig)
+       : (Mutation with type t := G.t) => {
   type t = G.t;
+  let baseUrl = C.baseUrl;
 
   type status =
     | Idle
@@ -69,7 +72,7 @@ module Make = (G: MutationConfig) : (Mutation with type t := G.t) => {
 
   let initialState: status = Idle;
 
-  let use = (~url) => {
+  let use = () => {
     let%hook (shouldFetch, setShouldFetch) = Hooks.state(false);
     let%hook (variables, setVariables) = Hooks.state(`Assoc([]));
     let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
@@ -86,7 +89,7 @@ module Make = (G: MutationConfig) : (Mutation with type t := G.t) => {
           ~meth=`POST,
           ~body,
           ~headers=[("Content-Type", "application/json")],
-          url,
+          baseUrl,
         )
         |> Lwt.map(
              fun

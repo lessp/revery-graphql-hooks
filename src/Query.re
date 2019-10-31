@@ -26,7 +26,6 @@ module type Query = {
 
   let use:
     (
-      ~url: string,
       ~variables: Yojson.Basic.t=?,
       unit,
       Revery.UI.React.Hooks.t(
@@ -41,8 +40,11 @@ module type Query = {
     (status, Revery.UI.React.Hooks.t('a, 'b));
 };
 
-module Make = (G: QueryConfig) : (Query with type t := G.t) => {
+module Make =
+       (C: {let baseUrl: string;}, G: QueryConfig)
+       : (Query with type t := G.t) => {
   type t = G.t;
+  let baseUrl = C.baseUrl;
 
   type status =
     | Idle
@@ -66,7 +68,7 @@ module Make = (G: QueryConfig) : (Query with type t := G.t) => {
 
   let initialState: status = Idle;
 
-  let use = (~url, ~variables: option(Yojson.Basic.t)=?, ()) => {
+  let use = (~variables: option(Yojson.Basic.t)=?, ()) => {
     let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
 
     let%hook () =
@@ -91,7 +93,7 @@ module Make = (G: QueryConfig) : (Query with type t := G.t) => {
               ~meth=`POST,
               ~body,
               ~headers=[("Content-Type", "application/json")],
-              url,
+              baseUrl,
             )
             |> Lwt.map(
                  fun
