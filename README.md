@@ -19,6 +19,18 @@ then in your `dune`-file:
 (libraries ... revery-graphql-hooks)
 ```
 
+Create a file, lets name it `Graphql.re` for easy access.
+
+In this file we'll specify some settings for our calls.
+
+```ocaml
+include ReveryGraphqlHooks.Make({
+  let baseUrl = "https://your_graphql_api_endpoint.com/";
+});
+```
+
+That's it, we can now make some calls!
+
 ## Syntax
 
 ### Query
@@ -34,10 +46,10 @@ module HelloQueryConfig = [%graphql
   |}
 ];
 
-module HelloQuery = ReveryGraphqlHooks.Query.Make(HelloQueryConfig);
+module HelloQuery = Graphql.Query.Make(HelloQueryConfig);
 
 let%component make = () => {
-  let%hook status = HelloQuery.use(~url=Config.apiUrl);
+  let%hook status = HelloQuery.use();
 
   let text = switch (status) {
   | Idle => "Idle"
@@ -62,11 +74,11 @@ module AddGreetingConfig = [%graphql
 ];
 
 module AddGreetingMutation =
-  ReveryGraphqlHooks.Mutation.Make(AddGreetingConfig);
+  Graphql.Mutation.Make(AddGreetingConfig);
 
 let%component make = () => {
   let%hook (addGreetingMutation, status) =
-    AddGreetingMutation.use(~url=Config.apiUrl);
+    AddGreetingMutation.use();
 
   let text =
     switch (status) {
