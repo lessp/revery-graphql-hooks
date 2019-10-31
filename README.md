@@ -28,9 +28,11 @@ Create a file, lets name it `Graphql.re` for easy access.
 In this file we'll specify some settings for our calls.
 
 ```ocaml
-include ReveryGraphqlHooks.Make({
+module Config = {
   let baseUrl = "https://your_graphql_api_endpoint.com/";
-});
+};
+
+include ReveryGraphqlHooks.Make(Config);
 ```
 
 That's it, we can now make some calls!
