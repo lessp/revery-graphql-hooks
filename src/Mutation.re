@@ -6,7 +6,7 @@ module type MutationConfig = {
   let query: string;
 
   type t;
-  let parse: [> | `Assoc(list((string, Yojson.Basic.t)))] => t;
+  let parse: Yojson.Basic.t => t;
 };
 
 module type Mutation = {
