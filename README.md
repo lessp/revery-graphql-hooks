@@ -2,6 +2,8 @@
 
 > A WIP library for hooks-based data-fetching with [GraphQL PPX](https://github.com/baransu/graphql_ppx_re) for [Revery](https://github.com/revery-ui/revery).
 
+A library for easy handling of GraphQL within Revery.
+
 ## Getting started (in its current form)
 
 ### Installing
@@ -26,6 +28,8 @@ then in your `dune`-file:
 Create a file, lets name it `Graphql.re` for easy access.
 
 In this file we'll specify some settings for our calls.
+
+(If you'd like to try out the example below, you can use: `https://hello-graphql-api.lessp.now.sh/api`)
 
 ```ocaml
 module Config = {
