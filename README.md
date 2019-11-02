@@ -4,7 +4,13 @@
 
 A library for easy handling of GraphQL within Revery.
 
-## Getting started (in its current form)
+## Table of Contents
+
+1. [Getting started](#getting-started)
+2. [Syntax](#syntax)
+3. [License](#license)
+
+## Getting started
 
 ### Installing
 
