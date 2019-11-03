@@ -1,5 +1,5 @@
 {
-  "checksum": "aa6fa33ceeecc85d5b20e97335491abd",
+  "checksum": "c8a37fbbe224fdca6a79f1bdfccf38d9",
   "root": "revery-graphql-hooks@link-dev:./package.json",
   "node": {
     "yarn-pkg-config@github:esy-ocaml/yarn-pkg-config#cca65f99674ed2d954d28788edeb8c57fada5ed0@d41d8cd9": {
@@ -36,8 +36,7 @@
         "@opam/reason@opam:3.5.2@f689c2cb", "@opam/dune@opam:1.11.4@21d66ccd"
       ],
       "devDependencies": [
-        "refmterr@3.2.2@d41d8cd9", "pesy@0.4.1@d41d8cd9",
-        "@reason-native/console@0.0.3@d41d8cd9",
+        "refmterr@3.2.2@d41d8cd9", "@reason-native/console@0.0.3@d41d8cd9",
         "@opam/utop@opam:2.4.2@1cef5c4e", "@opam/rtop@opam:3.5.2@7cdd768c",
         "@opam/merlin@opam:3.3.2@7a364181"
       ]
@@ -53,7 +52,7 @@
       "overrides": [],
       "dependencies": [
         "reperf@1.4.0@d41d8cd9", "rench@1.9.1@d41d8cd9",
-        "rebez@github:jchavarri/rebez#46cbc183@d41d8cd9",
+        "rebez@github:jchavarri/rebez#03fa3b7@d41d8cd9",
         "reason-sdl2@2.10.3008@d41d8cd9",
         "reason-gl-matrix@0.9.9305@d41d8cd9",
         "reason-fontkit@2.7.0@d41d8cd9",
@@ -152,17 +151,16 @@
       ],
       "devDependencies": []
     },
-    "rebez@github:jchavarri/rebez#46cbc183@d41d8cd9": {
-      "id": "rebez@github:jchavarri/rebez#46cbc183@d41d8cd9",
+    "rebez@github:jchavarri/rebez#03fa3b7@d41d8cd9": {
+      "id": "rebez@github:jchavarri/rebez#03fa3b7@d41d8cd9",
       "name": "rebez",
-      "version": "github:jchavarri/rebez#46cbc183",
+      "version": "github:jchavarri/rebez#03fa3b7",
       "source": {
         "type": "install",
-        "source": [ "github:jchavarri/rebez#46cbc183" ]
+        "source": [ "github:jchavarri/rebez#03fa3b7" ]
       },
       "overrides": [],
       "dependencies": [
-        "refmterr@3.2.2@d41d8cd9", "pesy@0.4.1@d41d8cd9",
         "ocaml@4.8.1000@d41d8cd9", "@opam/dune@opam:1.11.4@21d66ccd",
         "@esy-ocaml/reason@3.5.2@d41d8cd9"
       ],
@@ -246,20 +244,6 @@
         "@reason-native/console@0.0.3@d41d8cd9",
         "@esy-ocaml/reason@3.5.2@d41d8cd9"
       ],
-      "devDependencies": []
-    },
-    "pesy@0.4.1@d41d8cd9": {
-      "id": "pesy@0.4.1@d41d8cd9",
-      "name": "pesy",
-      "version": "0.4.1",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/pesy/-/pesy-0.4.1.tgz#sha1:37b3faccb3ecdb37f4bf3d95d04ffbd2633247af"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
       "devDependencies": []
     },
     "ocaml@4.8.1000@d41d8cd9": {

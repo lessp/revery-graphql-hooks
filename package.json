@@ -15,10 +15,9 @@
     "@opam/yojson": "*",
     "fetch-native-lwt": "github:lessp/reason-fetch:fetch-native-lwt.json#a0abf96",
     "ocaml": "<4.9.0",
-    "revery": "*"
+    "revery": "github:lessp/revery:package.json#4579355"
   },
   "devDependencies": {
-    "pesy": "0.4.1",
     "@opam/merlin": "^3.3.2",
     "@opam/rtop": "*",
     "@opam/utop": "*",
@@ -26,9 +25,7 @@
     "refmterr": "*"
   },
   "resolutions": {
-    "revery": "github:lessp/revery:package.json#4579355",
     "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#6ff66fa",
-    "rebez": "github:jchavarri/rebez#46cbc183",
     "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
     "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
     "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#76b461bed081c64908fb1fdfa076ab2c936ca622"

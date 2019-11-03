@@ -1,5 +1,5 @@
 {
-  "checksum": "4c1ab24a46b66ce0ec9ebdb9328452dc",
+  "checksum": "18000bf0bfa8fe2bbcb488bc234f2a0f",
   "root": "revery-graphql-hooks-example@link-dev:./example.json",
   "node": {
     "yarn-pkg-config@github:esy-ocaml/yarn-pkg-config#cca65f99674ed2d954d28788edeb8c57fada5ed0@d41d8cd9": {
