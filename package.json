@@ -26,7 +26,7 @@
     "refmterr": "*"
   },
   "resolutions": {
-    "revery": "link:../revery/package.json",
+    "revery": "github:lessp/revery:package.json#4579355",
     "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#6ff66fa",
     "rebez": "github:jchavarri/rebez#46cbc183",
     "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",

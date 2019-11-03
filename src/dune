@@ -1,10 +1,6 @@
 (library
  (name ReveryGraphqlHooks)
  (public_name revery-graphql-hooks)
- (preprocess (pps brisk-reconciler.ppx))
- (libraries 
-   Revery
-   fetch-native-lwt
-   yojson 
- ))
-
+ (preprocess
+  (pps brisk-reconciler.ppx))
+ (libraries Revery fetch-native-lwt yojson))

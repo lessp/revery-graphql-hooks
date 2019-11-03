@@ -1,0 +1,41 @@
+{
+  "name": "revery-graphql-hooks-example",
+  "version": "0.1.0",
+  "description": "Example project demonstrating Revery GraphQL Hooks",
+  "license": "MIT",
+  "esy": {
+    "build": "dune build -p example",
+    "buildDev": "refmterr dune build -p example",
+    "buildsInSource": "_build",
+    "install": ["esy-installer example.install"]
+  },
+  "scripts": {
+    "format": "esy dune build @fmt --auto-promote",
+    "start": "esy '@example' x example"
+  },
+  "dependencies": {
+    "@baransu/graphql_ppx_re": "*",
+    "@opam/dune": "1.11.1",
+    "@opam/reason": "*",
+    "ocaml": "<4.9.0",
+    "revery": "*",
+    "revery-graphql-hooks": "*"
+  },
+  "devDependencies": {
+    "@opam/merlin": "*",
+    "@reason-native/console": "*",
+    "esy-macdylibbundler": "*",
+    "ocaml": "<4.9.0",
+    "refmterr": "*"
+  },
+  "resolutions": {
+    "@baransu/graphql_ppx_re": "github:lessp/graphql_ppx_re:esy.json#122a301",
+    "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#0a2e476",
+    "@opam/conf-openssl": "esy-packages/esy-openssl#306bb87",
+    "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
+    "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
+    "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
+    "revery": "github:lessp/revery:package.json#4579355",
+    "revery-graphql-hooks": "link:./package.json"
+  }
+}

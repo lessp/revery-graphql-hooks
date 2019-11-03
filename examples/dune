@@ -1,0 +1,12 @@
+(executable
+ (name Example)
+ (package example)
+ (public_name Example)
+ (preprocess
+  (pps brisk-reconciler.ppx graphql_ppx))
+ (libraries Revery Revery.lwt revery-graphql-hooks))
+
+(install
+ (section bin)
+ (package example)
+ (files OpenSans-Regular.ttf OpenSans-Semibold.ttf))

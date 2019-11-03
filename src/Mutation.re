@@ -1,6 +1,4 @@
-open Revery_Core;
-open Revery;
-open Revery.UI;
+open Revery.UI.React;
 
 module type MutationConfig = {
   let query: string;
@@ -21,21 +19,18 @@ module type Mutation = {
   let use:
     (
       unit,
-      Revery.UI.React.Hooks.t(
+      Hooks.t(
         (
-          Revery_UI.React.Hooks.State.t(bool),
-          Revery_UI.React.Hooks.State.t(Yojson.Basic.t),
-          Revery_UI.React.Hooks.Reducer.t(status),
-          Revery_UI.React.Hooks.Effect.t(bool)
+          Hooks.State.t(bool),
+          Hooks.State.t(Yojson.Basic.t),
+          Hooks.Reducer.t(status),
+          Hooks.Effect.t(bool)
         ) =>
         'a,
         'b,
       )
     ) =>
-    (
-      ((~variables: Yojson.Basic.t, unit) => unit, status),
-      Revery.UI.React.Hooks.t('a, 'b),
-    );
+    (((~variables: Yojson.Basic.t, unit) => unit, status), Hooks.t('a, 'b));
 };
 
 module Make =
@@ -51,14 +46,12 @@ module Make =
     | Data(G.t);
 
   type action =
-    | Idle
     | Fetch
     | Error
     | Data(G.t);
 
-  let reducer = (action, state): status =>
+  let reducer = (action, _state): status =>
     switch (action) {
-    | Idle => Idle
     | Fetch => Loading
     | Error => Error
     | Data(obj) => Data(obj)

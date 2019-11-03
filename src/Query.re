@@ -1,6 +1,4 @@
-open Revery_Core;
-open Revery;
-open Revery.UI;
+open Revery.UI.React;
 
 module type QueryConfig = {
   let query: string;
@@ -22,16 +20,12 @@ module type Query = {
     (
       ~variables: Yojson.Basic.t=?,
       unit,
-      Revery.UI.React.Hooks.t(
-        (
-          Revery.UI.React.Hooks.Reducer.t(status),
-          Revery.UI.React.Hooks.Effect.t(Revery.UI.React.Hooks.Effect.onMount)
-        ) =>
-        'a,
+      Hooks.t(
+        (Hooks.Reducer.t(status), Hooks.Effect.t(Hooks.Effect.onMount)) => 'a,
         'b,
       )
     ) =>
-    (status, Revery.UI.React.Hooks.t('a, 'b));
+    (status, Hooks.t('a, 'b));
 };
 
 module Make =
@@ -47,14 +41,12 @@ module Make =
     | Data(G.t);
 
   type action =
-    | Idle
     | Fetch
     | Error
     | Data(G.t);
 
-  let reducer = (action, state): status =>
+  let reducer = (action, _state): status =>
     switch (action) {
-    | Idle => Idle
     | Fetch => Loading
     | Error => Error
     | Data(obj) => Data(obj)
