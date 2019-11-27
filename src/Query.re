@@ -1,11 +1,6 @@
 open Revery.UI.React;
 
-module type QueryConfig = {
-  let query: string;
-
-  type t;
-  let parse: Yojson.Basic.t => t;
-};
+include S;
 
 module type Query = {
   type t;
@@ -28,11 +23,10 @@ module type Query = {
     (status, Hooks.t('a, 'b));
 };
 
-module Make =
-       (C: {let baseUrl: string;}, G: QueryConfig)
-       : (Query with type t = G.t) => {
+module Make = (C: BaseConfig, G: QueryConfig) : (Query with type t = G.t) => {
   type t = G.t;
   let baseUrl = C.baseUrl;
+  let headers = C.headers;
 
   type status =
     | Idle
@@ -75,7 +69,7 @@ module Make =
             fetch(
               ~meth=`POST,
               ~body,
-              ~headers=[("Content-Type", "application/json")],
+              ~headers=[("Content-Type", "application/json"), ...headers],
               baseUrl,
             )
             |> Lwt.map(

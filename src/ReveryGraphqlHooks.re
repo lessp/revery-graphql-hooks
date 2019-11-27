@@ -1,6 +1,6 @@
-module Make = (C: {let baseUrl: string;}) => {
-  let baseUrl = C.baseUrl;
+include S;
 
+module Make = (C: BaseConfig) => {
   module Query = {
     module Make = Query.Make(C);
   };

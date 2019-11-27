@@ -13,9 +13,9 @@
     "@opam/dune": "*",
     "@opam/reason": "*",
     "@opam/yojson": "*",
-    "fetch-native-lwt": "github:lessp/reason-fetch:fetch-native-lwt.json#a0abf96",
+    "fetch-native-lwt": "github:lessp/reason-fetch:fetch-native-lwt.json#6179392",
     "ocaml": "<4.9.0",
-    "revery": "github:lessp/revery:package.json#4579355"
+    "revery": "github:revery-ui/revery"
   },
   "devDependencies": {
     "@opam/merlin": "^3.3.2",
@@ -31,4 +31,3 @@
     "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#76b461bed081c64908fb1fdfa076ab2c936ca622"
   }
 }
-

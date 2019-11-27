@@ -1,3 +1,4 @@
+open Revery;
 open Revery.UI;
 open Revery.UI.Components;
 
@@ -24,7 +25,7 @@ let%component make = (~app: Revery.App.t, ()) => {
   };
 
   <Center>
-    <Ticker onTick=handleClose tickRate={Seconds(5.0)} />
+    <Ticker onTick=handleClose tickRate={Time.seconds(5)} />
     <View style=Style.[marginTop(32)]>
       <Row>
         {allRoutes

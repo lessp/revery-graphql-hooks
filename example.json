@@ -18,7 +18,7 @@
     "@opam/dune": "1.11.1",
     "@opam/reason": "*",
     "ocaml": "<4.9.0",
-    "revery": "github:lessp/revery:package.json#4579355",
+    "revery": "github:revery-ui/revery",
     "revery-graphql-hooks": "*"
   },
   "devDependencies": {

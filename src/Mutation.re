@@ -1,11 +1,6 @@
 open Revery.UI.React;
 
-module type MutationConfig = {
-  let query: string;
-
-  type t;
-  let parse: Yojson.Basic.t => t;
-};
+include S;
 
 module type Mutation = {
   type t;
@@ -34,10 +29,11 @@ module type Mutation = {
 };
 
 module Make =
-       (C: {let baseUrl: string;}, G: MutationConfig)
+       (C: BaseConfig, G: MutationConfig)
        : (Mutation with type t = G.t) => {
   type t = G.t;
   let baseUrl = C.baseUrl;
+  let headers = C.headers;
 
   type status =
     | Idle
@@ -75,7 +71,7 @@ module Make =
         fetch(
           ~meth=`POST,
           ~body,
-          ~headers=[("Content-Type", "application/json")],
+          ~headers=[("Content-Type", "application/json"), ...headers],
           baseUrl,
         )
         |> Lwt.map(
