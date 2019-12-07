@@ -33,7 +33,7 @@ then in your `dune`-file:
 
 Create a file, lets name it `Graphql.re` for easy access.
 
-In this file we'll specify some settings for our calls.
+In this file we'll specify some settings for our HTTP-calls.
 
 (If you'd like to try out the example below, you can use: `https://hello-graphql-api.lessp.now.sh/api`)
 
@@ -45,7 +45,7 @@ module Config = {
 include ReveryGraphqlHooks.Make(Config);
 ```
 
-That's it, we can now make some calls!
+That's all, we can now make some queries!
 
 ## Syntax
 
