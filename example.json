@@ -14,8 +14,8 @@
     "start": "esy '@example' x example"
   },
   "dependencies": {
-    "@baransu/graphql_ppx_re": "github:lessp/graphql_ppx_re:esy.json#122a301",
-    "@opam/dune": "1.11.1",
+    "@baransu/graphql_ppx_re": "github:lessp/graphql_ppx_re:esy.json#a46aef2",
+    "@opam/dune": "*",
     "@opam/reason": "*",
     "ocaml": "<4.9.0",
     "revery": "github:revery-ui/revery",
@@ -29,6 +29,7 @@
     "refmterr": "*"
   },
   "resolutions": {
+    "@opam/opium_core": "rgrinberg/opium:opium_core.opam#1767ce612bc69a2ecd569404cb37f4a2c0e93e05",
     "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#0a2e476",
     "@opam/conf-openssl": "esy-packages/esy-openssl#306bb87",
     "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",

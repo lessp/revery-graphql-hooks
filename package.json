@@ -13,7 +13,7 @@
     "@opam/dune": "*",
     "@opam/reason": "*",
     "@opam/yojson": "*",
-    "fetch-native-lwt": "github:lessp/reason-fetch:fetch-native-lwt.json#6179392",
+    "fetch-native-lwt": "github:lessp/reason-fetch:fetch-native-lwt.json#f2121c9",
     "ocaml": "<4.9.0",
     "revery": "github:revery-ui/revery"
   },
@@ -25,6 +25,7 @@
     "refmterr": "*"
   },
   "resolutions": {
+    "@opam/opium_core": "rgrinberg/opium:opium_core.opam#1767ce612bc69a2ecd569404cb37f4a2c0e93e05",
     "@brisk/brisk-reconciler": "github:briskml/brisk-reconciler#6ff66fa",
     "@opam/httpaf-lwt-unix": "anmonteiro/httpaf:httpaf-lwt-unix.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
     "@opam/httpaf-lwt": "anmonteiro/httpaf:httpaf-lwt.opam#76b461bed081c64908fb1fdfa076ab2c936ca622",
