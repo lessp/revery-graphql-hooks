@@ -14,7 +14,7 @@
     "start": "esy '@example' x example"
   },
   "dependencies": {
-    "@baransu/graphql_ppx_re": "github:lessp/graphql_ppx_re:esy.json#a46aef2",
+    "@baransu/graphql_ppx_re": "github:lessp/graphql_ppx_re:esy.json#44d2567",
     "@opam/dune": "*",
     "@opam/reason": "*",
     "ocaml": "<4.9.0",
