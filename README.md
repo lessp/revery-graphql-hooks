@@ -1,14 +1,13 @@
 # Revery GraphQL Hooks
 
-> A WIP library for hooks-based data-fetching with [GraphQL PPX](https://github.com/baransu/graphql_ppx_re) for [Revery](https://github.com/revery-ui/revery).
-
 A library for easy handling of GraphQL within Revery.
 
 ## Table of Contents
 
 1. [Getting started](#getting-started)
 2. [Syntax](#syntax)
-3. [License](#license)
+3. [Todo](#todo)
+4. [License](#license)
 
 ## Getting started
 
@@ -118,6 +117,14 @@ let%component make = () => {
   </Center>;
 };
 ```
+
+## ToDo
+
+- [x] Propagate updates to hooks with the same queries
+- [ ] Timeout for requests
+- [ ] Retry requests
+- [ ] Cache
+- [ ] Simplify API by using `definition` from `graphql_ppx`
 
 ## License
 

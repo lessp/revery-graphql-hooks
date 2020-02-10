@@ -16,10 +16,9 @@ module type Mutation = {
       unit,
       Hooks.t(
         (
-          Hooks.State.t(bool),
           Hooks.State.t(Yojson.Basic.t),
           Hooks.Reducer.t(status),
-          Hooks.Effect.t(bool)
+          Hooks.Effect.t(Yojson.Basic.t)
         ) =>
         'a,
         'b,

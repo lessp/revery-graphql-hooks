@@ -16,7 +16,12 @@ module type Query = {
       ~variables: Yojson.Basic.t=?,
       unit,
       Hooks.t(
-        (Hooks.Reducer.t(status), Hooks.Effect.t(Hooks.Effect.onMount)) => 'a,
+        (
+          Hooks.Reducer.t(status),
+          Hooks.Effect.t(Hooks.Effect.onMount),
+          Hooks.Effect.t(option(Yojson.Basic.t))
+        ) =>
+        'a,
         'b,
       )
     ) =>
@@ -51,44 +56,87 @@ module Make = (C: BaseConfig, G: QueryConfig) : (Query with type t = G.t) => {
   let use = (~variables: option(Yojson.Basic.t)=?, ()) => {
     let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
 
+    let query = () => {
+      let variables =
+        switch (variables) {
+        | Some(variables) => variables
+        | None => `Assoc([])
+        };
+
+      let query =
+        `Assoc([("query", `String(G.query)), ("variables", variables)])
+        |> Yojson.Basic.to_string;
+
+      (query, variables);
+    };
+
+    let subscribeToStore = query =>
+      Store.subscribe(
+        ~query,
+        graphqlJson => {
+          let data =
+            graphqlJson
+            |> Yojson.Basic.from_string
+            |> Yojson.Basic.Util.member("data")
+            |> G.parse;
+
+          dispatch(Data(data));
+        },
+      );
+
+    let executeRequest = (query, variables) => {
+      dispatch(Fetch);
+
+      Fetch.(
+        post(
+          ~body=query,
+          ~headers=[("Content-Type", "application/json"), ...headers],
+          baseUrl,
+        )
+        |> Lwt.map(
+             fun
+             | Ok({Response.body, _}) => {
+                 let query =
+                   `Assoc([
+                     ("query", `String(G.query)),
+                     ("variables", variables),
+                   ])
+                   |> Yojson.Basic.to_string;
+
+                 Store.publish(~query, Response.Body.toString(body));
+               }
+             | _ => dispatch(Error),
+           )
+      )
+      |> ignore;
+    };
+
+    /* TODO: use OnMountAndIf when Revery has been updated to latest brisk */
     let%hook () =
       Hooks.effect(
         OnMount,
         () => {
-          let variables =
-            switch (variables) {
-            | Some(variables) => variables
-            | None => `Assoc([])
-            };
-          let body =
-            `Assoc([("query", `String(G.query)), ("variables", variables)])
-            |> Yojson.Basic.to_string;
-          dispatch(Fetch);
+          let (query, variables) = query();
+          let unsubscribe = subscribeToStore(query);
 
-          Fetch.(
-            fetch(
-              ~meth=`POST,
-              ~body,
-              ~headers=[("Content-Type", "application/json"), ...headers],
-              baseUrl,
-            )
-            |> Lwt.map(
-                 fun
-                 | Ok({Response.body, _}) => {
-                     let response =
-                       Response.Body.toString(body)
-                       |> Yojson.Basic.from_string
-                       |> Yojson.Basic.Util.member("data")
-                       |> G.parse;
+          executeRequest(query, variables);
 
-                     dispatch(Data(response));
-                   }
-                 | _ => dispatch(Error),
-               )
-          )
-          |> ignore;
+          Some(unsubscribe);
+        },
+      );
 
-          None;
+    let%hook () =
+      Hooks.effect(
+        If(
+          (prevVariables, nextVariables) => prevVariables != nextVariables,
+          variables,
+        ),
+        () => {
+          let (query, variables) = query();
+          let unsubscribe = subscribeToStore(query);
+          executeRequest(query, variables);
+
+          Some(unsubscribe);
         },
       );
 

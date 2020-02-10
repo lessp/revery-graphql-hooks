@@ -16,10 +16,9 @@ module type Mutation = {
       unit,
       Hooks.t(
         (
-          Hooks.State.t(bool),
           Hooks.State.t(Yojson.Basic.t),
           Hooks.Reducer.t(status),
-          Hooks.Effect.t(bool)
+          Hooks.Effect.t(Yojson.Basic.t)
         ) =>
         'a,
         'b,
@@ -56,69 +55,73 @@ module Make =
   let initialState: status = Idle;
 
   let use = () => {
-    let%hook (shouldFetch, setShouldFetch) = Hooks.state(false);
     let%hook (variables, setVariables) = Hooks.state(`Assoc([]));
     let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
 
+    let%hook () =
+      Hooks.effect(
+        If(
+          (prevVariables, nextVariables) => prevVariables !== nextVariables,
+          variables,
+        ),
+        () => {
+          let query =
+            `Assoc([("query", `String(G.query)), ("variables", variables)])
+            |> Yojson.Basic.to_string;
+
+          let unsubscribe =
+            Store.subscribe(
+              ~query,
+              graphqlJson => {
+                let data =
+                  graphqlJson
+                  |> Yojson.Basic.from_string
+                  |> Yojson.Basic.Util.member("data")
+                  |> G.parse;
+
+                dispatch(Data(data));
+              },
+            );
+
+          Some(unsubscribe);
+        },
+      );
+
     let makeRequest = (~variables) => {
-      let body =
+      let requestBody =
         `Assoc([("query", `String(G.query)), ("variables", variables)])
         |> Yojson.Basic.to_string;
 
       dispatch(Fetch);
 
       Fetch.(
-        fetch(
-          ~meth=`POST,
-          ~body,
+        post(
+          ~body=requestBody,
           ~headers=[("Content-Type", "application/json"), ...headers],
           baseUrl,
         )
         |> Lwt.map(
              fun
              | Ok({Response.body, _}) => {
-                 let response =
-                   Response.Body.toString(body)
-                   |> Yojson.Basic.from_string
-                   |> Yojson.Basic.Util.member("data")
-                   |> G.parse;
+                 let query =
+                   `Assoc([
+                     ("query", `String(G.query)),
+                     ("variables", variables),
+                   ])
+                   |> Yojson.Basic.to_string;
 
-                 dispatch(Data(response));
-                 setShouldFetch(_prevShouldFetch => false);
+                 Store.publish(~query, Response.Body.toString(body));
                }
-             | _ => {
-                 dispatch(Error);
-                 setShouldFetch(_prevShouldFetch => false);
-               },
+             | _ => dispatch(Error),
            )
       )
       |> ignore;
     };
 
-    let%hook () =
-      Hooks.effect(
-        If(
-          (prevShouldFetch, nextShouldFetch) =>
-            /** only run if the previous state and the next one is different,
-             *  AND shouldFetch is true */
-            prevShouldFetch
-            !== nextShouldFetch
-            && nextShouldFetch == true,
-          shouldFetch,
-        ),
-        () => {
-          makeRequest(~variables);
-
-          None;
-        },
-      );
-
-    /* the mutation-function we provide is just a trigger for fetching
-     * and puts the variables in the state
-     */
     let mutation = (~variables, ()) => {
       setVariables(_prevVariables => variables);
-      setShouldFetch(_prevShouldFetch => true);
+
+      makeRequest(~variables);
     };
 
     (mutation, state);

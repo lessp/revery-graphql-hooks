@@ -10,5 +10,9 @@ module type MutationConfig = {
   let parse: Yojson.Basic.t => t;
 };
 
-/* these are currently identical */
-module type QueryConfig = MutationConfig;
+module type QueryConfig = {
+  let query: string;
+
+  type t;
+  let parse: Yojson.Basic.t => t;
+};

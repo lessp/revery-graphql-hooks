@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-latest, windows-latest]
+        os: [macOS-latest]
         # os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
       - uses: actions/setup-node@v1
@@ -21,7 +21,7 @@ jobs:
         if: matrix.os == 'macOS-latest'
         run: brew install libpng
       - name: Install esy
-        run: npm install -g esy@0.5.8
+        run: npm install -g @esy-nightly/esy
       - name: Install dependencies
         run: esy install
       - name: Build

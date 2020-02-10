@@ -16,7 +16,12 @@ module type Query = {
       ~variables: Yojson.Basic.t=?,
       unit,
       Hooks.t(
-        (Hooks.Reducer.t(status), Hooks.Effect.t(Hooks.Effect.onMount)) => 'a,
+        (
+          Hooks.Reducer.t(status),
+          Hooks.Effect.t(Hooks.Effect.onMount),
+          Hooks.Effect.t(option(Yojson.Basic.t))
+        ) =>
+        'a,
         'b,
       )
     ) =>
