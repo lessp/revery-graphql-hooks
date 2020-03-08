@@ -7,7 +7,8 @@ A library for easy handling of GraphQL within Revery.
 1. [Getting started](#getting-started)
 2. [Syntax](#syntax)
 3. [Todo](#todo)
-4. [License](#license)
+4. [Contributing](#contributing)
+5. [License](#license)
 
 ## Getting started
 
@@ -21,6 +22,8 @@ In your `package.json/esy.json` add:
   "revery-graphql-hooks": "lessp/revery-graphql-hooks",
 }
 ```
+
+You will also need to copy all the `resolutions` in [example.json](example.json) except for `revery-graphql-hooks`.
 
 then in your `dune`-file:
 
@@ -125,6 +128,18 @@ let%component make = () => {
 - [ ] Retry requests
 - [ ] Cache
 - [ ] Simplify API by using `definition` from `graphql_ppx`
+
+## Contributing
+
+Contributions are more than welcome! Start by cloning this repository. The runnable example is located in [examples/](examples/), the library itself is located in [src/](src/).
+
+```
+# to build the library
+esy
+
+# to run the examples
+esy '@example' start
+```
 
 ## License
 
