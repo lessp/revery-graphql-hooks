@@ -1,6 +1,6 @@
 # Revery GraphQL Hooks
 
-A library for easy handling of GraphQL within Revery.
+A library for easy handling of GraphQL within Revery using [graphql_ppx](https://github.com/reasonml-community/graphql_ppx).
 
 ## Table of Contents
 
@@ -19,16 +19,24 @@ In your `package.json/esy.json` add:
 ```json
 "dependencies": {
   ...
+  "graphql_ppx": "reasonml-community/graphql_ppx:esy.json",
+  "revery": "revery-ui/revery",
   "revery-graphql-hooks": "lessp/revery-graphql-hooks",
 }
 ```
 
-You will also need to copy all the `resolutions` in [example.json](example.json) except for `revery-graphql-hooks`.
+You will also need to copy anu `resolutions` in [example.json](example.json) except for `revery-graphql-hooks`.
 
 then in your `dune`-file:
 
 ```lisp
-(libraries ... revery-graphql-hooks)
+(preprocess
+  (pps
+    graphql_ppx ;; + any other preprocessors (e.g. brisk-reconciler.ppx) for Revery
+  ))
+(libraries
+  ;; any other libraries
+  Revery Revery.lwt revery-graphql-hooks)
 ```
 
 ### Setup
@@ -45,6 +53,12 @@ module Config = {
 };
 
 include ReveryGraphqlHooks.Make(Config);
+```
+
+**NOTE:** For Revery to handle Promises we need to start the event loop. Add the following line, prior to calling `UI.start`.
+
+```re
+let _startEventLoop = Revery_Lwt.startEventLoop();
 ```
 
 That's all, we can now make some queries!
