@@ -29,7 +29,7 @@ let subscribe = (~query: string, subscriberCallback: string => unit) => {
 let publish = (~query: string, value: string) => {
   /* Update data in store */
   switch (Hashtbl.find_opt(state, query)) {
-  | Some(data) => Hashtbl.replace(state, query, value)
+  | Some(_data) => Hashtbl.replace(state, query, value)
   | None => Hashtbl.add(state, query, value)
   };
 

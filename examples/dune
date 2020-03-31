@@ -3,7 +3,7 @@
  (package example)
  (public_name Example)
  (preprocess
-  (pps brisk-reconciler.ppx graphql_ppx))
+  (pps graphql_ppx brisk-reconciler.ppx))
  (libraries Revery Revery.lwt revery-graphql-hooks))
 
 (install

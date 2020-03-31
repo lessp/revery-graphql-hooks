@@ -6,20 +6,20 @@ module Typography = {
     Style.[
       color(Colors.white),
       fontFamily("OpenSans-Semibold.ttf"),
-      fontSize(48),
+      fontSize(48.),
     ];
 
   let link =
     Style.[
       color(Colors.white),
       fontFamily("OpenSans-Regular.ttf"),
-      fontSize(24),
+      fontSize(24.),
     ];
 
   let linkActive =
     Style.[
       color(Colors.black),
       fontFamily("OpenSans-Regular.ttf"),
-      fontSize(24),
+      fontSize(24.),
     ];
 };

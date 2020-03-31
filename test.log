@@ -1,0 +1,162 @@
+
+--
+Log started at 2020-03-06T22:51:17Z
+--
+
+[TRACE]    +0ms Timber : trace
+[DEBUG]    +0ms Timber : debug
+[INFO]     +0ms Timber : info
+[WARN]     +0ms Timber : warn
+[ERROR]    +0ms Timber : error
+[TRACE]    +0ms Timber.Formatters : tracef - User time: 0.003950s
+[DEBUG]    +0ms Timber.Formatters : debugf - System time: 0.000000s
+[INFO]     +0ms Timber.Formatters : infof - UID 1000
+[WARN]     +0ms Timber.Formatters : warnf - PID: 21552
+[ERROR]    +0ms Timber.Formatters : errorf - Since 1970: 1583535077.899524s
+[PERF]   +250ms Performance Measurement : perf took 0.250071s
+[TRACE]    +0ms Timber.Fn : Entering Unix.sleepf
+[TRACE]  +250ms Timber.Fn : Exited Unix.sleepf
+[TRACE]    +0ms Timber.Fn : Entering Unix.getppid
+[TRACE]    +0ms Timber.Fn : Exited Unix.getppid with 21443
+[INFO]  +9900ms Timber.Time : Large milliseconds
+[INFO]  +10.01s Timber.Time : Small seconds
+[INFO]  +599.9s Timber.Time : Large seconds
+[INFO]   +10.0m Timber.Time : Small minutes
+[INFO]  +600.0m Timber.Time : Large minutes
+[INFO]   +10.0h Timber.Time : Small hours
+[INFO]   +27.8h Timber.Time : Large hours
+
+--
+Log started at 2020-03-06T22:51:50Z
+--
+
+[TRACE]    +0ms Timber : trace
+[DEBUG]    +0ms Timber : debug
+[INFO]     +0ms Timber : info
+[WARN]     +0ms Timber : warn
+[ERROR]    +0ms Timber : error
+[TRACE]    +0ms Timber.Formatters : tracef - User time: 0.000000s
+[DEBUG]    +0ms Timber.Formatters : debugf - System time: 0.005904s
+[INFO]     +0ms Timber.Formatters : infof - UID 1000
+[WARN]     +0ms Timber.Formatters : warnf - PID: 28055
+[ERROR]    +0ms Timber.Formatters : errorf - Since 1970: 1583535110.114983s
+[PERF]   +250ms Performance Measurement : perf took 0.250074s
+[TRACE]    +0ms Timber.Fn : Entering Unix.sleepf
+[TRACE]  +250ms Timber.Fn : Exited Unix.sleepf
+[TRACE]    +0ms Timber.Fn : Entering Unix.getppid
+[TRACE]    +0ms Timber.Fn : Exited Unix.getppid with 27881
+[INFO]  +9900ms Timber.Time : Large milliseconds
+[INFO]  +10.01s Timber.Time : Small seconds
+[INFO]  +599.9s Timber.Time : Large seconds
+[INFO]   +10.0m Timber.Time : Small minutes
+[INFO]  +600.0m Timber.Time : Large minutes
+[INFO]   +10.0h Timber.Time : Small hours
+[INFO]   +27.8h Timber.Time : Large hours
+
+--
+Log started at 2020-03-06T22:52:21Z
+--
+
+[TRACE]    +0ms Timber : trace
+[DEBUG]    +0ms Timber : debug
+[INFO]     +0ms Timber : info
+[WARN]     +0ms Timber : warn
+[ERROR]    +0ms Timber : error
+[TRACE]    +0ms Timber.Formatters : tracef - User time: 0.006245s
+[DEBUG]    +0ms Timber.Formatters : debugf - System time: 0.000000s
+[INFO]     +0ms Timber.Formatters : infof - UID 1000
+[WARN]     +0ms Timber.Formatters : warnf - PID: 1521
+[ERROR]    +0ms Timber.Formatters : errorf - Since 1970: 1583535141.839826s
+[PERF]   +250ms Performance Measurement : perf took 0.250114s
+[TRACE]    +0ms Timber.Fn : Entering Unix.sleepf
+[TRACE]  +250ms Timber.Fn : Exited Unix.sleepf
+[TRACE]    +0ms Timber.Fn : Entering Unix.getppid
+[TRACE]    +0ms Timber.Fn : Exited Unix.getppid with 31892
+[INFO]  +9900ms Timber.Time : Large milliseconds
+[INFO]  +10.01s Timber.Time : Small seconds
+[INFO]  +599.9s Timber.Time : Large seconds
+[INFO]   +10.0m Timber.Time : Small minutes
+[INFO]  +600.0m Timber.Time : Large minutes
+[INFO]   +10.0h Timber.Time : Small hours
+[INFO]   +27.8h Timber.Time : Large hours
+
+--
+Log started at 2020-03-06T22:52:47Z
+--
+
+[TRACE]    +0ms Timber : trace
+[DEBUG]    +0ms Timber : debug
+[INFO]     +0ms Timber : info
+[WARN]     +0ms Timber : warn
+[ERROR]    +0ms Timber : error
+[TRACE]    +0ms Timber.Formatters : tracef - User time: 0.002775s
+[DEBUG]    +0ms Timber.Formatters : debugf - System time: 0.000000s
+[INFO]     +0ms Timber.Formatters : infof - UID 1000
+[WARN]     +0ms Timber.Formatters : warnf - PID: 4308
+[ERROR]    +0ms Timber.Formatters : errorf - Since 1970: 1583535167.913884s
+[PERF]   +250ms Performance Measurement : perf took 0.250099s
+[TRACE]    +0ms Timber.Fn : Entering Unix.sleepf
+[TRACE]  +250ms Timber.Fn : Exited Unix.sleepf
+[TRACE]    +0ms Timber.Fn : Entering Unix.getppid
+[TRACE]    +0ms Timber.Fn : Exited Unix.getppid with 4252
+[INFO]  +9900ms Timber.Time : Large milliseconds
+[INFO]  +10.01s Timber.Time : Small seconds
+[INFO]  +599.9s Timber.Time : Large seconds
+[INFO]   +10.0m Timber.Time : Small minutes
+[INFO]  +600.0m Timber.Time : Large minutes
+[INFO]   +10.0h Timber.Time : Small hours
+[INFO]   +27.8h Timber.Time : Large hours
+
+--
+Log started at 2020-03-06T22:55:32Z
+--
+
+[TRACE]    +0ms Timber : trace
+[DEBUG]    +0ms Timber : debug
+[INFO]     +0ms Timber : info
+[WARN]     +0ms Timber : warn
+[ERROR]    +0ms Timber : error
+[TRACE]    +0ms Timber.Formatters : tracef - User time: 0.000000s
+[DEBUG]    +0ms Timber.Formatters : debugf - System time: 0.003369s
+[INFO]     +0ms Timber.Formatters : infof - UID 1000
+[WARN]     +0ms Timber.Formatters : warnf - PID: 14531
+[ERROR]    +0ms Timber.Formatters : errorf - Since 1970: 1583535332.430528s
+[PERF]   +250ms Performance Measurement : perf took 0.250206s
+[TRACE]    +0ms Timber.Fn : Entering Unix.sleepf
+[TRACE]  +250ms Timber.Fn : Exited Unix.sleepf
+[TRACE]    +0ms Timber.Fn : Entering Unix.getppid
+[TRACE]    +0ms Timber.Fn : Exited Unix.getppid with 13878
+[INFO]  +9900ms Timber.Time : Large milliseconds
+[INFO]  +10.01s Timber.Time : Small seconds
+[INFO]  +599.9s Timber.Time : Large seconds
+[INFO]   +10.0m Timber.Time : Small minutes
+[INFO]  +600.0m Timber.Time : Large minutes
+[INFO]   +10.0h Timber.Time : Small hours
+[INFO]   +27.8h Timber.Time : Large hours
+
+--
+Log started at 2020-03-06T23:10:30Z
+--
+
+[TRACE]    +0ms Timber : trace
+[DEBUG]    +0ms Timber : debug
+[INFO]     +0ms Timber : info
+[WARN]     +0ms Timber : warn
+[ERROR]    +0ms Timber : error
+[TRACE]    +0ms Timber.Formatters : tracef - User time: 0.000000s
+[DEBUG]    +0ms Timber.Formatters : debugf - System time: 0.003273s
+[INFO]     +0ms Timber.Formatters : infof - UID 1000
+[WARN]     +0ms Timber.Formatters : warnf - PID: 2104
+[ERROR]    +0ms Timber.Formatters : errorf - Since 1970: 1583536230.903381s
+[PERF]   +250ms Performance Measurement : perf took 0.250144s
+[TRACE]    +0ms Timber.Fn : Entering Unix.sleepf
+[TRACE]  +250ms Timber.Fn : Exited Unix.sleepf
+[TRACE]    +0ms Timber.Fn : Entering Unix.getppid
+[TRACE]    +0ms Timber.Fn : Exited Unix.getppid with 2040
+[INFO]  +9900ms Timber.Time : Large milliseconds
+[INFO]  +10.01s Timber.Time : Small seconds
+[INFO]  +599.9s Timber.Time : Large seconds
+[INFO]   +10.0m Timber.Time : Small minutes
+[INFO]  +600.0m Timber.Time : Large minutes
+[INFO]   +10.0h Timber.Time : Small hours
+[INFO]   +27.8h Timber.Time : Large hours

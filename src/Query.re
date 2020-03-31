@@ -103,7 +103,7 @@ module Make = (C: BaseConfig, G: QueryConfig) : (Query with type t = G.t) => {
                    ])
                    |> Yojson.Basic.to_string;
 
-                 Store.publish(~query, Response.Body.toString(body));
+                 Store.publish(~query, Body.toString(body));
                }
              | _ => dispatch(Error),
            )

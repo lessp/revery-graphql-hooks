@@ -10,16 +10,19 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-latest]
         # os: [ubuntu-latest, macOS-latest, windows-latest]
+        # os: [ubuntu-latest, macOS-latest]
+        os: [macOS-latest]
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 12.16.1
       - uses: actions/checkout@v1
-      - name: Install libpng (macOS)
+      - name: Install additional libraries (macOS)
         if: matrix.os == 'macOS-latest'
-        run: brew install libpng
+        run: |
+          brew install cmake
+          brew install libpng ragel
       - name: Install esy
         run: npm install -g @esy-nightly/esy
       - name: Install dependencies
@@ -30,7 +33,7 @@ jobs:
         run: esy dune build @fmt --root .
       - name: Build and run example
         run: |
-          esy @example install
-          esy @example build
-          esy @example format
-          esy @example start
+          esy '@example' install
+          esy '@example' build
+          esy '@example' format
+          esy '@example' start

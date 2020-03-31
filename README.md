@@ -124,8 +124,6 @@ let%component make = () => {
 ## ToDo
 
 - [x] Propagate updates to hooks with the same queries
-- [ ] Timeout for requests
-- [ ] Retry requests
 - [ ] Cache
 - [ ] Simplify API by using `definition` from `graphql_ppx`
 
