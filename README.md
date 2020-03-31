@@ -57,7 +57,7 @@ include ReveryGraphqlHooks.Make(Config);
 
 **NOTE:** For Revery to handle Promises we need to start the event loop. Add the following line, prior to calling `UI.start`.
 
-```re
+```ocaml
 let _startEventLoop = Revery_Lwt.startEventLoop();
 ```
 
