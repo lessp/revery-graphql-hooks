@@ -13,7 +13,7 @@
     "@opam/dune": "*",
     "@esy-ocaml/reason": ">=3.5.0",
     "@opam/yojson": "*",
-    "fetch-native-lwt": "lessp/fetch:fetch-native-lwt.json#a5628ac",
+    "fetch-native-lwt": "0.1.0-alpha.2",
     "ocaml": ">=4.8.0",
     "revery": "revery-ui/revery"
   },
