@@ -13,6 +13,17 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "lessp",
+      "name": "Tom Ekander",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17602389?v=4",
+      "profile": "https://lessp.dev/",
+      "contributions": [
+        "ideas",
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

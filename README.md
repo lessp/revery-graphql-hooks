@@ -1,6 +1,6 @@
 # Revery GraphQL Hooks
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A library for easy handling of GraphQL within Revery using [graphql_ppx](https://github.com/reasonml-community/graphql_ppx).
@@ -169,6 +169,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="https://lessp.dev/"><img src="https://avatars3.githubusercontent.com/u/17602389?v=4" width="100px;" alt=""/><br /><sub><b>Tom Ekander</b></sub></a><br /><a href="#ideas-lessp" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/lessp/revery-graphql-hooks/commits?author=lessp" title="Code">💻</a> <a href="https://github.com/lessp/revery-graphql-hooks/commits?author=lessp" title="Documentation">📖</a></td>
     <td align="center"><a href="https://twitter.com/rita_krutikova"><img src="https://avatars2.githubusercontent.com/u/5932274?v=4" width="100px;" alt=""/><br /><sub><b>Margarita Krutikova</b></sub></a><br /><a href="#ideas-MargaretKrutikova" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
