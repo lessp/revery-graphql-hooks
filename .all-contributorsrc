@@ -6,6 +6,17 @@
   "commit": false,
   "contributors": [
     {
+      "login": "lessp",
+      "name": "Tom Ekander",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17602389?v=4",
+      "profile": "https://lessp.dev/",
+      "contributions": [
+        "ideas",
+        "code",
+        "doc"
+      ]
+    },
+    {
       "login": "MargaretKrutikova",
       "name": "Margarita Krutikova",
       "avatar_url": "https://avatars2.githubusercontent.com/u/5932274?v=4",
@@ -15,14 +26,13 @@
       ]
     },
     {
-      "login": "lessp",
-      "name": "Tom Ekander",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/17602389?v=4",
-      "profile": "https://lessp.dev/",
+      "login": "despairblue",
+      "name": "Danny Martini",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/927609?v=4",
+      "profile": "https://github.com/despairblue",
       "contributions": [
         "ideas",
-        "code",
-        "doc"
+        "code"
       ]
     }
   ],
