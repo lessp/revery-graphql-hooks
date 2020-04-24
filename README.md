@@ -53,6 +53,7 @@ In this file we'll specify some settings for our HTTP-calls.
 ```ocaml
 module Config = {
   let baseUrl = "https://your_graphql_api_endpoint.com/";
+  let headers = [];
 };
 
 include ReveryGraphqlHooks.Make(Config);
