@@ -9,12 +9,11 @@ module HelloNameConfig = [%graphql
   |}
 ];
 
-module HelloNameQuery = Graphql.Query.Make(HelloNameConfig);
-
 let%component make = () => {
   let%hook status =
-    HelloNameQuery.use(
-      ~variables=HelloNameConfig.make(~name="Abc", ())#variables,
+    Graphql.useQuery(
+      ~variables=HelloNameConfig.makeVariables(~name="Abc", ()),
+      HelloNameConfig.definition,
       (),
     );
 
@@ -26,5 +25,5 @@ let%component make = () => {
     | Error => "Error"
     };
 
-  <Center> <Text style=Theme.Typography.h1 text /> </Center>;
+  <Center> <Theme.Typography.H1 text /> </Center>;
 };

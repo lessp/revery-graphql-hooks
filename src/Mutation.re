@@ -3,60 +3,65 @@ open Revery.UI.React;
 include S;
 
 module type Mutation = {
-  type t;
+  type t('responseType) = 'responseType;
 
-  type status =
+  type status('responseType) =
     | Idle
     | Loading
     | Error
-    | Data(t);
+    | Data(t('responseType));
 
-  let use:
+  let useMutation:
     (
+      ~variables: Yojson.Basic.t=?,
+      (Yojson.Basic.t => t('responseType), string, 'b),
       unit,
       Hooks.t(
         (
           Hooks.State.t(Yojson.Basic.t),
-          Hooks.Reducer.t(status),
+          Hooks.Reducer.t(status('responseType)),
           Hooks.Effect.t(Yojson.Basic.t)
         ) =>
-        'a,
-        'b,
+        'c,
+        'd,
       )
     ) =>
-    (((~variables: Yojson.Basic.t, unit) => unit, status), Hooks.t('a, 'b));
+    (
+      ((~variables: Yojson.Basic.t, unit) => unit, status('responseType)),
+      Hooks.t('c, 'd),
+    );
 };
 
-module Make =
-       (C: BaseConfig, G: MutationConfig)
-       : (Mutation with type t = G.t) => {
-  type t = G.t;
+module Make = (C: BaseConfig) : Mutation => {
   let baseUrl = C.baseUrl;
   let headers = C.headers;
+  type t('responseType) = 'responseType;
 
-  type status =
+  type status('responseType) =
     | Idle
     | Loading
     | Error
-    | Data(G.t);
+    | Data(t('responseType));
 
-  type action =
+  type action('responseType) =
     | Fetch
     | Error
-    | Data(G.t);
+    | Data('responseType);
 
-  let reducer = (action, _state): status =>
+  let reducer = (action, _state): status('responseType) =>
     switch (action) {
     | Fetch => Loading
     | Error => Error
     | Data(obj) => Data(obj)
     };
 
-  let initialState: status = Idle;
+  let initialState: status('responseType) = Idle;
 
-  let use = () => {
+  let useMutation = (~variables: option(Yojson.Basic.t)=?, definition, ()) => {
     let%hook (variables, setVariables) = Hooks.state(`Assoc([]));
     let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
+
+    let (parseQuery, graphqlQuery, composeVariables) = definition;
 
     let%hook () =
       Hooks.effect(
@@ -66,7 +71,10 @@ module Make =
         ),
         () => {
           let query =
-            `Assoc([("query", `String(G.query)), ("variables", variables)])
+            `Assoc([
+              ("query", `String(graphqlQuery)),
+              ("variables", variables),
+            ])
             |> Yojson.Basic.to_string;
 
           let unsubscribe =
@@ -77,7 +85,7 @@ module Make =
                   graphqlJson
                   |> Yojson.Basic.from_string
                   |> Yojson.Basic.Util.member("data")
-                  |> G.parse;
+                  |> parseQuery;
 
                 dispatch(Data(data));
               },
@@ -89,7 +97,10 @@ module Make =
 
     let makeRequest = (~variables) => {
       let requestBody =
-        `Assoc([("query", `String(G.query)), ("variables", variables)])
+        `Assoc([
+          ("query", `String(graphqlQuery)),
+          ("variables", variables),
+        ])
         |> Yojson.Basic.to_string;
 
       dispatch(Fetch);
@@ -105,7 +116,7 @@ module Make =
              | Ok({Response.body, _}) => {
                  let query =
                    `Assoc([
-                     ("query", `String(G.query)),
+                     ("query", `String(graphqlQuery)),
                      ("variables", variables),
                    ])
                    |> Yojson.Basic.to_string;

@@ -2,24 +2,30 @@ module Typography = {
   open Revery;
   open Revery.UI;
 
-  let h1 =
-    Style.[
-      color(Colors.white),
-      fontFamily("OpenSans-Semibold.ttf"),
-      fontSize(48.),
-    ];
+  module Font = {
+    let semiBold = Font.Family.fromFile("OpenSans-Semibold.ttf");
+    let regular = Font.Family.fromFile("OpenSans-Regular.ttf");
+  };
 
-  let link =
-    Style.[
-      color(Colors.white),
-      fontFamily("OpenSans-Regular.ttf"),
-      fontSize(24.),
-    ];
+  module H1 = {
+    let make = (~text, ()) => {
+      <Text
+        text
+        fontFamily=Font.semiBold
+        fontSize=48.
+        style=Style.[color(Colors.white)]
+      />;
+    };
+  };
 
-  let linkActive =
-    Style.[
-      color(Colors.black),
-      fontFamily("OpenSans-Regular.ttf"),
-      fontSize(24.),
-    ];
+  module Link = {
+    let make = (~text, ~active=false, ()) => {
+      <Text
+        text
+        fontFamily=Font.regular
+        fontSize=24.
+        style=Style.[color(active ? Colors.black : Colors.white)]
+      />;
+    };
+  };
 };

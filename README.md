@@ -82,10 +82,8 @@ module HelloQueryConfig = [%graphql
   |}
 ];
 
-module HelloQuery = Graphql.Query.Make(HelloQueryConfig);
-
 let%component make = () => {
-  let%hook status = HelloQuery.use();
+  let%hook status = Graphql.useQuery(HelloQueryConfig.definition, ());
 
   let text = switch (status) {
   | Idle => "Idle"
@@ -94,7 +92,7 @@ let%component make = () => {
   | Error => "Error"
   };
 
-  <Text style=Theme.Typography.h1 text />;
+  <Text text />;
 };
 ```
 
@@ -109,12 +107,9 @@ module AddGreetingConfig = [%graphql
   |}
 ];
 
-module AddGreetingMutation =
-  Graphql.Mutation.Make(AddGreetingConfig);
-
 let%component make = () => {
   let%hook (addGreetingMutation, status) =
-    AddGreetingMutation.use();
+    Graphql.useMutation(AddGreetingConfig.definition, ());
 
   let text =
     switch (status) {
@@ -128,13 +123,13 @@ let%component make = () => {
     <Button
       onClick={_ =>
         addGreetingMutation(
-          ~variables=AddGreetingConfig.make(~greeting="Cheers", ())#variables,
+          ~variables=AddGreetingConfig.makeVariables(~greeting="Cheers", ()),
           (),
         )
       }>
-      <Text style=Theme.Typography.h1 text="Click to add" />
+      <Text text="Click to add" />
     </Clickable>
-    <Text style=Theme.Typography.h1 text />
+    <Text text />
   </Center>;
 };
 ```
@@ -142,8 +137,8 @@ let%component make = () => {
 ## ToDo
 
 - [x] Propagate updates to hooks with the same queries
+- [x] Simplify API by using `definition` from `graphql_ppx`
 - [ ] Cache
-- [ ] Simplify API by using `definition` from `graphql_ppx`
 
 ## Contributing
 

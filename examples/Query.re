@@ -7,10 +7,8 @@ module HelloConfig = [%graphql {|
     }
   |}];
 
-module HelloQuery = Graphql.Query.Make(HelloConfig);
-
 let%component make = () => {
-  let%hook status = HelloQuery.use();
+  let%hook status = Graphql.useQuery(HelloConfig.definition, ());
 
   let text =
     switch (status) {
@@ -20,5 +18,5 @@ let%component make = () => {
     | Error => "Error"
     };
 
-  <Center> <Text style=Theme.Typography.h1 text /> </Center>;
+  <Center> <Theme.Typography.H1 text /> </Center>;
 };

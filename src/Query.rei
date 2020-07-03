@@ -3,29 +3,50 @@ open Revery.UI.React;
 include (module type of S);
 
 module type Query = {
-  type t;
+  type t('responseType) = 'responseType;
 
-  type status =
+  type status('responseType) =
     | Idle
     | Loading
     | Error
-    | Data(t);
+    | Data(t('responseType));
 
-  let use:
+  /** Returns the status of the query
+
+      {2 Example}
+      {[
+       let%hook status =
+         Graphql.useQuery(
+           ~variables=HelloNameConfig.makeVariables(~name="Kim", ()),
+           HelloNameConfig.definition,
+           (),
+         );
+
+       /* somewhere further down your component */
+       let text =
+         switch (status) {
+         | Idle => "Idle"
+         | Data(query) => query#helloName
+         | Loading => "Loading..."
+         | Error => "Error"
+         };
+      ]}
+  */
+  let useQuery:
     (
       ~variables: Yojson.Basic.t=?,
+      (Yojson.Basic.t => t('responseType), string, 'b),
       unit,
       Hooks.t(
         (
-          Hooks.Reducer.t(status),
-          Hooks.Effect.t(Hooks.Effect.onMount),
+          Hooks.Reducer.t(status('responseType)),
           Hooks.Effect.t(option(Yojson.Basic.t))
         ) =>
-        'a,
-        'b,
+        'c,
+        'd,
       )
     ) =>
-    (status, Hooks.t('a, 'b));
+    (status('responseType), Hooks.t('c, 'd));
 };
 
-module Make: (BC: BaseConfig, QC: QueryConfig) => Query with type t := QC.t;
+module Make: (BC: BaseConfig) => Query;

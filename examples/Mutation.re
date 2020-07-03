@@ -9,10 +9,9 @@ module AddGreetingConfig = [%graphql
   |}
 ];
 
-module AddGreetingMutation = Graphql.Mutation.Make(AddGreetingConfig);
-
 let%component make = () => {
-  let%hook (addGreetingMutation, status) = AddGreetingMutation.use();
+  let%hook (addGreetingMutation, status) =
+    Graphql.useMutation(AddGreetingConfig.definition, ());
 
   let text =
     switch (status) {
@@ -24,15 +23,15 @@ let%component make = () => {
 
   <Center>
     <Button
-      fontFamily="OpenSans-Regular.ttf"
+      fontFamily=Theme.Typography.Font.regular
       onClick={_ =>
         addGreetingMutation(
-          ~variables=AddGreetingConfig.make(~greeting="Cheers", ())#variables,
+          ~variables=AddGreetingConfig.makeVariables(~greeting="Cheers", ()),
           (),
         )
       }
       title="Click to add"
     />
-    <Text style=Theme.Typography.h1 text />
+    <Theme.Typography.H1 text />
   </Center>;
 };

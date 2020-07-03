@@ -34,11 +34,8 @@ let%component make = (~app: Revery.App.t, ()) => {
          |> List.map(r => {
               <View style=Style.[marginRight(16)]>
                 <Clickable onClick={_ => setRoute(_ => r)}>
-                  <Text
-                    style={
-                      route == r
-                        ? Theme.Typography.linkActive : Theme.Typography.link
-                    }
+                  <Theme.Typography.Link
+                    active={route == r}
                     text={r |> routeToString}
                   />
                 </Clickable>

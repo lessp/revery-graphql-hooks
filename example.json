@@ -22,6 +22,7 @@
     "revery-graphql-hooks": "*"
   },
   "devDependencies": {
+    "@opam/ocaml-lsp-server": "ocaml/ocaml-lsp:ocaml-lsp-server.opam",
     "@opam/merlin": "*",
     "@reason-native/console": "*",
     "esy-macdylibbundler": "*",
@@ -29,9 +30,13 @@
     "refmterr": "*"
   },
   "resolutions": {
-    "@opam/cmdliner": "1.0.2",
-    "esy-cmake": "prometheansacrifice/esy-cmake#2a47392def755",
-    "revery-graphql-hooks": "link:./package.json"
+    "revery-graphql-hooks": "link:./package.json",
+    "graphql_ppx": {
+      "source": "github:reasonml-community/graphql_ppx:esy.json#84f139f",
+      "override": {
+        "build": "dune build -p graphql_ppx"
+      }
+    }
   }
 }
 

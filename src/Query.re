@@ -3,72 +3,69 @@ open Revery.UI.React;
 include S;
 
 module type Query = {
-  type t;
+  type t('responseType) = 'responseType;
 
-  type status =
+  type status('responseType) =
     | Idle
     | Loading
     | Error
-    | Data(t);
+    | Data(t('responseType));
 
-  let use:
+  let useQuery:
     (
       ~variables: Yojson.Basic.t=?,
+      (Yojson.Basic.t => t('responseType), string, 'b),
       unit,
       Hooks.t(
         (
-          Hooks.Reducer.t(status),
-          Hooks.Effect.t(Hooks.Effect.onMount),
+          Hooks.Reducer.t(status('responseType)),
           Hooks.Effect.t(option(Yojson.Basic.t))
         ) =>
-        'a,
-        'b,
+        'c,
+        'd,
       )
     ) =>
-    (status, Hooks.t('a, 'b));
+    (status('responseType), Hooks.t('c, 'd));
 };
 
-module Make = (C: BaseConfig, G: QueryConfig) : (Query with type t = G.t) => {
-  type t = G.t;
+module Make = (C: BaseConfig) : Query => {
   let baseUrl = C.baseUrl;
   let headers = C.headers;
 
-  type status =
+  type t('responseType) = 'responseType;
+
+  type status('responseType) =
     | Idle
     | Loading
     | Error
-    | Data(G.t);
+    | Data(t('responseType));
 
-  type action =
-    | Fetch
+  type action('responseType) =
+    | FetchData
     | Error
-    | Data(G.t);
+    | Data('responseType);
 
-  let reducer = (action, _state): status =>
+  let reducer = (action, _state): status('responseType) =>
     switch (action) {
-    | Fetch => Loading
+    | FetchData => Loading
     | Error => Error
     | Data(obj) => Data(obj)
     };
 
-  let initialState: status = Idle;
+  let initialState: status('responseType) = Idle;
 
-  let use = (~variables: option(Yojson.Basic.t)=?, ()) => {
+  let createBody = (~variables=`Assoc([]), ~query) => {
+    let payload =
+      `Assoc([("query", `String(query)), ("variables", variables)])
+      |> Yojson.Basic.to_string;
+
+    (payload, variables);
+  };
+
+  let useQuery = (~variables: option(Yojson.Basic.t)=?, definition, ()) => {
+    let (parse, graphqlQuery, composeVariables) = definition;
+
     let%hook (state, dispatch) = Hooks.reducer(~initialState, reducer);
-
-    let query = () => {
-      let variables =
-        switch (variables) {
-        | Some(variables) => variables
-        | None => `Assoc([])
-        };
-
-      let query =
-        `Assoc([("query", `String(G.query)), ("variables", variables)])
-        |> Yojson.Basic.to_string;
-
-      (query, variables);
-    };
 
     let subscribeToStore = query =>
       Store.subscribe(
@@ -78,14 +75,14 @@ module Make = (C: BaseConfig, G: QueryConfig) : (Query with type t = G.t) => {
             graphqlJson
             |> Yojson.Basic.from_string
             |> Yojson.Basic.Util.member("data")
-            |> G.parse;
+            |> parse;
 
           dispatch(Data(data));
         },
       );
 
     let executeRequest = (query, variables) => {
-      dispatch(Fetch);
+      dispatch(FetchData);
 
       Fetch.(
         post(
@@ -95,46 +92,26 @@ module Make = (C: BaseConfig, G: QueryConfig) : (Query with type t = G.t) => {
         )
         |> Lwt.map(
              fun
-             | Ok({Response.body, _}) => {
-                 let query =
-                   `Assoc([
-                     ("query", `String(G.query)),
-                     ("variables", variables),
-                   ])
-                   |> Yojson.Basic.to_string;
-
-                 Store.publish(~query, Body.toString(body));
-               }
+             | Ok({Response.body, _}) =>
+               Store.publish(~query, Body.toString(body))
              | _ => dispatch(Error),
            )
       )
       |> ignore;
     };
 
-    /* TODO: use OnMountAndIf when Revery has been updated to latest brisk */
     let%hook () =
       Hooks.effect(
-        OnMount,
-        () => {
-          let (query, variables) = query();
-          let unsubscribe = subscribeToStore(query);
-
-          executeRequest(query, variables);
-
-          Some(unsubscribe);
-        },
-      );
-
-    let%hook () =
-      Hooks.effect(
-        If(
+        OnMountAndIf(
           (prevVariables, nextVariables) => prevVariables != nextVariables,
           variables,
         ),
         () => {
-          let (query, variables) = query();
-          let unsubscribe = subscribeToStore(query);
-          executeRequest(query, variables);
+          let (payload, variables) =
+            createBody(~query=graphqlQuery, ~variables?);
+
+          let unsubscribe = subscribeToStore(payload);
+          executeRequest(payload, variables);
 
           Some(unsubscribe);
         },
