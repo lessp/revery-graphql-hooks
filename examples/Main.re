@@ -3,6 +3,7 @@ open Revery.UI;
 open Revery.UI.Components;
 
 let allRoutes = [`Query, `QueryWithVariables, `Mutation, `MutationTwo];
+
 let routeToString =
   fun
   | `Query => "Query"
@@ -21,10 +22,9 @@ let%component make = (~app: Revery.App.t, ()) => {
     | `MutationTwo => <Mutation />
     };
 
-  /** This exits the example after 5 seconds for CI testing purposes */
-  let handleClose = _ => {
-    Revery.App.quit(~code=0, app);
-  };
+  let handleClose = _ =>
+    Sys.getenv_opt("CI") |> Option.is_some
+      ? Revery.App.quit(~code=0, app) : ();
 
   <Center>
     <Ticker onTick=handleClose tickRate={Time.seconds(5)} />

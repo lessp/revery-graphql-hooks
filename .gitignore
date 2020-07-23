@@ -9,3 +9,4 @@ _release
 *.byte
 *.native
 *.install
+test.log

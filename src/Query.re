@@ -84,19 +84,17 @@ module Make = (C: BaseConfig) : Query => {
     let executeRequest = (query, variables) => {
       dispatch(FetchData);
 
-      Fetch.(
-        post(
-          ~body=query,
-          ~headers=[("Content-Type", "application/json"), ...headers],
-          baseUrl,
-        )
-        |> Lwt.map(
-             fun
-             | Ok({Response.body, _}) =>
-               Store.publish(~query, Body.toString(body))
-             | _ => dispatch(Error),
-           )
+      Fetch.post(
+        ~body=query,
+        ~headers=[("Content-Type", "application/json"), ...headers],
+        baseUrl,
       )
+      |> Lwt.map(
+           fun
+           | Ok({Fetch.Response.body, _}) =>
+             Store.publish(~query, Fetch.Body.toString(body))
+           | _ => dispatch(Error),
+         )
       |> ignore;
     };
 

@@ -15,11 +15,11 @@ module type Mutation = {
 
       {2 Example}
       {[
-        let%hook (addGreetingMutation, status) = Graphql.useMutation(AddGreetingConfig.definition, ());
+        let%hook (addGreetingMutation, status) = Graphql.useMutation(AddGreeting.definition, ());
 
         /* somewhere further down your component */
         addGreetingMutation(
-          ~variables=AddGreetingConfig.makeVariables(~greeting="Hello", ()),
+          ~variables=AddGreeting.makeVariables(~greeting="Hello", ()),
           (),
         )
       ]}

@@ -1,14 +1,14 @@
 open Revery.UI;
 open Revery.UI.Components;
 
-module HelloConfig = [%graphql {|
+module Hello = [%graphql {|
     query hello {
       hello
     }
   |}];
 
 let%component make = () => {
-  let%hook status = Graphql.useQuery(HelloConfig.definition, ());
+  let%hook status = Graphql.useQuery(Hello.definition, ());
 
   let text =
     switch (status) {

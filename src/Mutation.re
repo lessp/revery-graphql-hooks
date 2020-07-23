@@ -105,27 +105,25 @@ module Make = (C: BaseConfig) : Mutation => {
 
       dispatch(Fetch);
 
-      Fetch.(
-        post(
-          ~body=requestBody,
-          ~headers=[("Content-Type", "application/json"), ...headers],
-          baseUrl,
-        )
-        |> Lwt.map(
-             fun
-             | Ok({Response.body, _}) => {
-                 let query =
-                   `Assoc([
-                     ("query", `String(graphqlQuery)),
-                     ("variables", variables),
-                   ])
-                   |> Yojson.Basic.to_string;
-
-                 Store.publish(~query, Body.toString(body));
-               }
-             | _ => dispatch(Error),
-           )
+      Fetch.post(
+        ~body=requestBody,
+        ~headers=[("Content-Type", "application/json"), ...headers],
+        baseUrl,
       )
+      |> Lwt.map(
+           fun
+           | Ok({Fetch.Response.body, _}) => {
+               let query =
+                 `Assoc([
+                   ("query", `String(graphqlQuery)),
+                   ("variables", variables),
+                 ])
+                 |> Yojson.Basic.to_string;
+
+               Store.publish(~query, Fetch.Body.toString(body));
+             }
+           | _ => dispatch(Error),
+         )
       |> ignore;
     };
 

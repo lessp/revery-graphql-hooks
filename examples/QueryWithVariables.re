@@ -1,7 +1,7 @@
 open Revery.UI;
 open Revery.UI.Components;
 
-module HelloNameConfig = [%graphql
+module HelloName = [%graphql
   {|
     query helloName($name: String!) {
       helloName(name: $name)
@@ -12,8 +12,8 @@ module HelloNameConfig = [%graphql
 let%component make = () => {
   let%hook status =
     Graphql.useQuery(
-      ~variables=HelloNameConfig.makeVariables(~name="Abc", ()),
-      HelloNameConfig.definition,
+      ~variables=HelloName.makeVariables(~name="Abc", ()),
+      HelloName.definition,
       (),
     );
 

@@ -1,7 +1,7 @@
 open Revery.UI;
 open Revery.UI.Components;
 
-module AddGreetingConfig = [%graphql
+module AddGreeting = [%graphql
   {|
     mutation addGreeting($greeting: String!) {
       addGreeting(greeting: $greeting)
@@ -10,8 +10,8 @@ module AddGreetingConfig = [%graphql
 ];
 
 let%component make = () => {
-  let%hook (addGreetingMutation, status) =
-    Graphql.useMutation(AddGreetingConfig.definition, ());
+  let%hook (addGreeting, status) =
+    Graphql.useMutation(AddGreeting.definition, ());
 
   let text =
     switch (status) {
@@ -25,8 +25,8 @@ let%component make = () => {
     <Button
       fontFamily=Theme.Typography.Font.regular
       onClick={_ =>
-        addGreetingMutation(
-          ~variables=AddGreetingConfig.makeVariables(~greeting="Cheers", ()),
+        addGreeting(
+          ~variables=AddGreeting.makeVariables(~greeting="Cheers", ()),
           (),
         )
       }

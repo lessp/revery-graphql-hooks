@@ -17,8 +17,8 @@ module type Query = {
       {[
        let%hook status =
          Graphql.useQuery(
-           ~variables=HelloNameConfig.makeVariables(~name="Kim", ()),
-           HelloNameConfig.definition,
+           ~variables=HelloName.makeVariables(~name="Kim", ()),
+           HelloName.definition,
            (),
          );
 
