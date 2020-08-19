@@ -1,6 +1,9 @@
 # Revery GraphQL Hooks
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A library for easy handling of GraphQL within Revery using [graphql_ppx](https://github.com/reasonml-community/graphql_ppx).
@@ -122,13 +125,13 @@ let%component make = () => {
   <Center>
     <Button
       onClick={_ =>
-        addGreetingMutation(
-          ~variables=AddGreetingConfig.makeVariables(~greeting="Cheers", ()),
+        addGreeting(
+          ~variables=AddGreeting.makeVariables(~greeting="Cheers", ()),
           (),
         )
-      }>
-      <Text text="Click to add" />
-    </Clickable>
+      }
+      title="Click to add"
+    />
     <Text text />
   </Center>;
 };
@@ -173,6 +176,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
